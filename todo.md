@@ -42,3 +42,9 @@
 - [x] Tối ưu SEO meta tags (title, description, og:image, twitter:card)
 - [x] Tạo HANDOVER.md
 - [x] Save checkpoint
+
+## Bàn giao (Round 2)
+- [x] Cập nhật HANDOVER.md với domain production và hướng dẫn export GitHub
+- [x] Tạo README.md đối tác (developer onboarding) ở project root
+- [x] Hướng dẫn user export code lên GitHub qua Settings → GitHub
+- [x] Save checkpoint cuối khi tài liệu hoàn tất
