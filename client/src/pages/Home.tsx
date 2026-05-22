@@ -1,31 +1,45 @@
-import { useAuth } from "@/_core/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { getLoginUrl } from "@/const";
-import { Streamdown } from 'streamdown';
+import { useState } from "react";
+import AmenitiesSection from "@/components/landing/AmenitiesSection";
+import ContactSection from "@/components/landing/ContactSection";
+import ExitIntentPopup from "@/components/landing/ExitIntentPopup";
+import FloatingCTA from "@/components/landing/FloatingCTA";
+import Footer from "@/components/landing/Footer";
+import GallerySection from "@/components/landing/GallerySection";
+import Header from "@/components/landing/Header";
+import Hero from "@/components/landing/Hero";
+import LeadFormDialog from "@/components/landing/LeadFormDialog";
+import LocationSection from "@/components/landing/LocationSection";
+import OverviewSection from "@/components/landing/OverviewSection";
+import PromotionsSection from "@/components/landing/PromotionsSection";
+import VR360Section from "@/components/landing/VR360Section";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // The userAuth hooks provides authentication state
-  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
-
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+  const [formOpen, setFormOpen] = useState(false);
+  const openForm = () => setFormOpen(true);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen bg-cream text-navy-900 overflow-x-hidden">
+      <Header />
+
       <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
+        <Hero onOpenForm={openForm} />
+        <OverviewSection />
+        <LocationSection />
+        <AmenitiesSection />
+        <PromotionsSection onOpenForm={openForm} />
+        <VR360Section />
+        <GallerySection />
+        <ContactSection />
       </main>
+
+      <Footer />
+      <FloatingCTA onOpenForm={openForm} />
+      <LeadFormDialog
+        open={formOpen}
+        onClose={() => setFormOpen(false)}
+        source="cta-popup"
+      />
+      <ExitIntentPopup />
     </div>
   );
 }

@@ -1,11 +1,10 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
-import { ENV } from './_core/env';
+import { InsertLead, InsertUser, leads, users } from "../drizzle/schema";
+import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
-// Lazily create the drizzle instance so local tooling can run without a DB.
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
     try {
@@ -56,8 +55,8 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       values.role = user.role;
       updateSet.role = user.role;
     } else if (user.openId === ENV.ownerOpenId) {
-      values.role = 'admin';
-      updateSet.role = 'admin';
+      values.role = "admin";
+      updateSet.role = "admin";
     }
 
     if (!values.lastSignedIn) {
@@ -89,4 +88,60 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+// ============================================================
+// Leads helpers
+// ============================================================
+
+export async function insertLead(lead: InsertLead) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  const result = await db.insert(leads).values(lead);
+  // mysql2 returns insertId in the result
+  const insertId = (result as unknown as Array<{ insertId: number }>)[0]?.insertId
+    ?? (result as unknown as { insertId?: number }).insertId
+    ?? 0;
+
+  // Fetch the just-inserted row to return full details
+  if (insertId) {
+    const rows = await db.select().from(leads).where(eq(leads.id, insertId)).limit(1);
+    if (rows.length > 0) return rows[0];
+  }
+  // Fallback: return the most recent lead with same phone
+  const rows = await db
+    .select()
+    .from(leads)
+    .where(eq(leads.phone, lead.phone))
+    .orderBy(desc(leads.id))
+    .limit(1);
+  return rows[0];
+}
+
+export async function listLeads() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(leads).orderBy(desc(leads.createdAt));
+}
+
+export async function updateLeadStatus(
+  id: number,
+  status: "new" | "in_progress" | "contacted" | "closed" | "not_interested",
+  adminNote?: string | null,
+) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  const updates: Record<string, unknown> = { status };
+  if (adminNote !== undefined) {
+    updates.adminNote = adminNote;
+  }
+
+  await db.update(leads).set(updates).where(eq(leads.id, id));
+
+  const rows = await db.select().from(leads).where(eq(leads.id, id)).limit(1);
+  return rows[0];
+}
