@@ -170,16 +170,11 @@ export const GALLERY = [
   { src: IMAGES.heroAlt, alt: "Toàn cảnh dự án OceanFront Horizon ban ngày" },
   { src: IMAGES.overviewNightFireworks, alt: "OceanFront Horizon về đêm với pháo hoa lung linh" },
   { src: IMAGES.skyGalaxyPool, alt: "Sky Galaxy Pool 102m dài nhất Việt Nam" },
-  { src: IMAGES.infinityPoolNight, alt: "Bể bơi vô cực đêm Sky Galaxy Pool" },
-  { src: IMAGES.poolNightView, alt: "Bể bơi tầng cao view vịnh Nha Trang" },
   { src: IMAGES.conceptAerial, alt: "Phối cảnh tổng thể OceanFront Horizon từ flycam" },
   { src: IMAGES.conceptLocation, alt: "Vị trí dự án trên trục đường Trần Phú" },
-  { src: IMAGES.horizonApartments, alt: "Tổ hợp căn hộ Horizon nhìn từ vịnh" },
-  { src: IMAGES.overviewAerial, alt: "Toàn cảnh dự án ngày bên vịnh Nha Trang" },
   { src: IMAGES.bannerTranPhu, alt: "Đường Trần Phú – con đường danh giá bậc nhất Nha Trang" },
   { src: IMAGES.interiorLivingroom, alt: "Nội thất phòng khách căn hộ view biển" },
   { src: IMAGES.locationMap, alt: "Bản đồ vị trí dự án và tiện ích xung quanh" },
-  { src: IMAGES.actualProgress, alt: "Tiến độ thực tế dự án tháng 5/2026" },
 ] as const;
 
 export const NAV_ITEMS = [
