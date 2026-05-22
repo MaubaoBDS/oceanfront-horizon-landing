@@ -11,6 +11,7 @@ import LeadFormDialog from "@/components/landing/LeadFormDialog";
 import LocationSection from "@/components/landing/LocationSection";
 import OverviewSection from "@/components/landing/OverviewSection";
 import PromotionsSection from "@/components/landing/PromotionsSection";
+import FloorplanSection from "@/components/landing/FloorplanSection";
 import VR360Section from "@/components/landing/VR360Section";
 
 export default function Home() {
@@ -29,6 +30,7 @@ export default function Home() {
         <PromotionsSection onOpenForm={openForm} />
         <VR360Section />
         <GallerySection />
+        <FloorplanSection />
         <ContactSection />
       </main>
 

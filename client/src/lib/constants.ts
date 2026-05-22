@@ -28,6 +28,7 @@ export const IMAGES = {
   infinityPoolNight: "/manus-storage/infinity-pool-night_720f502a.jpg",
   locationMap: "/manus-storage/location-tranphu-map_26f1e9f0.jpg",
   actualProgress: "/manus-storage/actual-progress_93bfb583.jpg",
+  floorplanTang510: "/manus-storage/floorplan-tang5-10_3f5d21fc.webp",
 } as const;
 
 export const PROJECT = {
@@ -184,6 +185,7 @@ export const NAV_ITEMS = [
   { label: "Ưu đãi", href: "#promotions" },
   { label: "VR360", href: "#vr360" },
   { label: "Hình ảnh", href: "#gallery" },
+  { label: "Mặt bằng", href: "#floorplan" },
   { label: "Liên hệ", href: "#contact" },
 ] as const;
 
